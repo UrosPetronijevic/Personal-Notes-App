@@ -3,11 +3,11 @@ import { supabase } from "../supabaseClient";
 
 const AuthContext = createContext();
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }: any) => {
   const [session, setSession] = useState(undefined);
 
   //Sign up
-  const signUpNewUser = async () => {
+  const signUpNewUser = async (email: any, password: any) => {
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
@@ -21,13 +21,12 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   //Sign in
-  const signInUser = async ({ email, password }) => {
+  const signInUser = async (email, password) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
-        passwort: password,
+        password: password,
       });
-
       if (error) {
         console.error("Sign in error: ", error);
         return { success: false, error: error.message };
