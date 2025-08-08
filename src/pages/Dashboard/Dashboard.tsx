@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { UserAuth } from "../context/AuthContext";
+import { UserAuth } from "../../context/AuthContext";
 
 export default function Dashboard() {
-  const { session, signOut } = UserAuth();
+  const { session, signOut }: any = UserAuth();
   const navigate = useNavigate();
 
   console.log(session);
 
-  const handleSignOut = async (e) => {
+  const handleSignOut = async (e: React.MouseEvent<HTMLParagraphElement>) => {
     e.preventDefault();
 
     try {
