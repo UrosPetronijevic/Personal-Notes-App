@@ -8,13 +8,13 @@ export default function Signup() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { session, signUpNewUser } = UserAuth();
+  const { session, signUpNewUser }: any = UserAuth();
 
   const navigate = useNavigate();
 
   console.log(session);
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -37,7 +37,7 @@ export default function Signup() {
         <h2 className="font-bold pb-2">Sign up today!</h2>
 
         <p>
-          Already have an account?{" "}
+          Already have an account?
           <Link to="/signin" className="text-cyan-300">
             Sign in!
           </Link>
