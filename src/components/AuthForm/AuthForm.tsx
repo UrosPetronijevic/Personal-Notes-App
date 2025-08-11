@@ -29,8 +29,8 @@ export default function AuthForm({
 
         <Input setFunc={setPassword} inputType="password" />
 
-        <Button size="small" color="red" disabled={loading}>
-          Sign in
+        <Button size="small" variant={"secondary"} disabled={loading}>
+          {formType === "signup" ? "Sign up" : "Sign in"}
         </Button>
 
         {error && <p className="text-red-500 text-center pt-4">{error}</p>}

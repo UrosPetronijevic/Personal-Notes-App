@@ -1,7 +1,7 @@
 // types.ts or a separate file if you prefer
 type ButtonProps = {
   size: "small" | "medium" | "large" | "max";
-  color: string;
+  variant: "primary" | "secondary";
   onClick?: () => void;
   disabled?: boolean;
   children: React.ReactNode;
@@ -11,8 +11,8 @@ type ButtonProps = {
 // Button.tsx
 export default function Button({
   size = "small",
-  color,
   children,
+  variant,
   onClick,
   disabled,
   type = "submit",
@@ -41,7 +41,9 @@ export default function Button({
 
   return (
     <button
-      className={`${baseClasses} ${color} ${sizeClasses}`}
+      className={`${baseClasses} ${
+        variant === "primary" ? "bg-cyan-500" : "bg-slate-500 text-white"
+      } ${sizeClasses}`}
       onClick={onClick}
       disabled={disabled}
       type={type}
