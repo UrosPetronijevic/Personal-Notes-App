@@ -6,6 +6,7 @@ type ButtonProps = {
   disabled?: boolean;
   children: React.ReactNode;
   type?: "submit" | "reset" | "button";
+  position?: "center" | "start" | "end";
 };
 
 // Button.tsx
@@ -16,12 +17,13 @@ export default function Button({
   onClick,
   disabled,
   type = "submit",
+  position = "center",
 }: ButtonProps) {
   let sizeClasses = "";
 
   switch (size) {
     case "small":
-      sizeClasses = "px-4 py-2 text-sm";
+      sizeClasses = "px-4 py-2 text-sm w-fit";
       break;
     case "medium":
       sizeClasses = "px-6 py-3 text-base";
@@ -43,7 +45,9 @@ export default function Button({
     <button
       className={`${baseClasses} ${
         variant === "primary" ? "bg-cyan-500" : "bg-slate-500 text-white"
-      } ${sizeClasses}`}
+      } ${sizeClasses} ${position === "center" && "self-center"} ${
+        position === "start" && "self-start"
+      } ${position === "end" && "self-end"} cursor-pointer`}
       onClick={onClick}
       disabled={disabled}
       type={type}

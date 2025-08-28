@@ -6,13 +6,19 @@ import { useState } from "react";
 import Recent from "../Recent/Recent";
 import Notes from "../Notes/Notes";
 import Stats from "../Stats/Stats";
+import Modal from "../../components/Modal/Modal";
+import DashboardHeader from "../../components/DashboardHeader/DashboardHeader";
 
 export default function Dashboard() {
   const { session, signOut }: any = UserAuth();
   const navigate = useNavigate();
   const [page, setPage] = useState("Recent");
+  const [note, setNote] = useState(false);
 
-  console.log(session);
+  const [notesArr, setNotesArr] = useState<[]>([]);
+  const [notesObj, setNotesObj] = useState<{}>({});
+
+  console.log(session, notesArr, notesObj);
 
   const handleSignOut = async (e: React.MouseEvent<HTMLParagraphElement>) => {
     e.preventDefault();
@@ -26,25 +32,33 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-2 felx flex-col">
-      <h2 className="justify-self-end">Welcome: {session?.user?.email}</h2>
+    <div className=" flex flex-col h-screen max-w-screen relative">
+      <DashboardHeader session={session} handleSignOut={handleSignOut} />
 
       <DashNavigation>
         <NavItem content="Recent" setPage={setPage} />
         <NavItem content="Notes" setPage={setPage} />
         <NavItem content="Stats" setPage={setPage} />
+        <div
+          className="p-2 text-green-300 ml-8"
+          onClick={() => {
+            setNote(true);
+          }}
+        >
+          New Note +
+        </div>
       </DashNavigation>
 
-      {page === "Recent" && <Recent />}
-      {page === "Notes" && <Notes />}
-      {page === "Stats" && <Stats />}
-
-      <p
-        onClick={handleSignOut}
-        className="hover:cursor-pointer border inline-block px-4 py-3 mt-4"
-      >
-        Sign out
-      </p>
+      {page === "Recent" && <Recent notesArr={notesArr} notesObj={notesObj} />}
+      {page === "Notes" && <Notes notesArr={notesArr} notesObj={notesObj} />}
+      {page === "Stats" && <Stats notesArr={notesArr} notesObj={notesObj} />}
+      {note === true && (
+        <Modal
+          setNote={setNote}
+          setNotesArr={setNotesArr}
+          setNotesObj={setNotesObj}
+        />
+      )}
     </div>
   );
 }
